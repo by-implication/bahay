@@ -15,8 +15,7 @@
      (enable-console-print!)))
 
 (def init-state
-  {;;:roles bata/roles
-   :people bata/people})
+  {:people bata/people})
 
 (defui Role
   static om/Ident
@@ -24,7 +23,7 @@
     [:role/by-id id])
   static om/IQuery
   (query [this]
-    [:role/id :role/name]))
+    [:role/name]))
 
 (defui Person
   static om/Ident

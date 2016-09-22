@@ -11,6 +11,6 @@
     :person/name {:nick "Levi"
                   :first "Levi"
                   :Last "Tan Ong"}
-    :person/roles [(get roles 0) (get roles 1) (get roles 2)]
+    :person/roles [(roles 0) (roles 1) (roles 2)]
     :person/link "http://github.com/levitanong"
     :person/writeup "Lorem Ipsum Dolor"}])
