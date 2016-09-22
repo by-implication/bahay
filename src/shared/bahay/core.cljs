@@ -1,13 +1,15 @@
 (ns bahay.core
     (:require
-     [om.next :as om :refer-macros [defui]]
+     [devtools.core :as devtools]
+     [goog.dom :as gdom]
      [om.dom :as dom]
-     [goog.dom :as gdom]))
+     [om.next :as om :refer-macros [defui]]
+     ))
 
+(devtools/install!)
 (enable-console-print!)
 
 (def app-state (atom {}))
-
 
 (defui Root
   Object
