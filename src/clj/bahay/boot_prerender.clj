@@ -15,8 +15,7 @@
      [:meta {:http-equiv "X-UA-Compatible"
              :content "IE=edge"}]
      [:title "By Implication"]
-     (hiccup/include-css "css/styles.css")
-     ]
+     (hiccup/include-css "css/styles.css")]
     [:body
      html-string
      (hiccup/include-js "main.js")]))
