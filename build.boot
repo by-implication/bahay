@@ -25,9 +25,14 @@
                           [garden "1.3.0"]
                           [org.martinklepsch/boot-garden "1.3.0-0"]
 
+                          ;; shared
+                          [org.omcljs/om "1.0.0-alpha45"]
+                          [bidi "2.0.10"]
+
                           ;; client
+                          [kibu/pushy "0.3.6"]
                           [binaryage/devtools "0.8.1" :scope "test"]
-                          [org.omcljs/om "1.0.0-alpha45"]])
+                          ])
 
 (require
  '[adzerk.boot-cljs      :refer [cljs]]

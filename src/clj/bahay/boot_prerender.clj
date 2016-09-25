@@ -2,6 +2,7 @@
   {:boot/export-tasks true}
   (:require
    [bahay.kubo :as kubo]
+   [bahay.people :as people]
    [boot.core :as c]
    [clojure.java.io :as io]
    [hiccup.page :as hiccup]
@@ -21,8 +22,12 @@
      (hiccup/include-js "main.js")]))
 
 (defn- render-to-file!
-  [out-file]
-  (let [html-string (dom/render-to-str ((om/factory kubo/Root)))]
+  [out-file route]
+  (let [r (om/reconciler {:state (assoc kubo/init-state
+                                   :current-view route)
+                          :parser kubo/parser})
+        c (om/add-root! r kubo/Root nil)
+        html-string (dom/render-to-str c)]
     (doto out-file
       io/make-parents
       (spit (html-wrapper html-string)))))
@@ -34,9 +39,12 @@
     (fn middleware [next-handler]
       (fn handler [fileset]
         (c/empty-dir! tmp)
-        (let [out-file (io/file tmp "index.html")]
-          (render-to-file! out-file)
-          (-> fileset
-            (c/add-resource tmp)
-            c/commit!
-            (next-handler)))))))
+        (doseq [[path route] (second kubo/app-routes)]
+          (let [out-file (io/file tmp (str path
+                                        (when-not (clojure.string/blank? path) "/")
+                                        "index.html"))]
+            (render-to-file! out-file route)))
+        (-> fileset
+          (c/add-resource tmp)
+          c/commit!
+          (next-handler))))))

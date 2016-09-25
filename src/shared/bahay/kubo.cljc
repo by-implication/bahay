@@ -1,58 +1,79 @@
 (ns bahay.kubo
   #?(:clj (:refer-clojure :exclude [read]))
+  #?(:cljs (:refer-clojure :exclude [println]))
   (:require
    #?@(:cljs [[devtools.core :as devtools]
               [goog.dom :as gdom]])
-   [bahay.parser :refer [read]]
    [bahay.data :as bata]
+   [bahay.parser :refer [read mutate]]
+   [bahay.people :as people]
+   [bidi.bidi :as bidi]
    [om.dom :as dom]
    [om.next :as om :refer [defui]]
+   #?(:cljs [pushy.core :as pushy])
    ))
 
 #?(:cljs
    (do
      (devtools/install!)
-     (enable-console-print!)))
+     ;; below instead of enable-console-print!
+     ;; for compatibility with devtools.
+     (def println js/console.log)))
 
 (def init-state
-  {:people bata/people})
+  {:current-view :portfolio
+   :people bata/people})
 
-(defui Role
-  static om/Ident
-  (ident [this {:keys [role/id]}]
-    [:role/by-id id])
-  static om/IQuery
-  (query [this]
-    [:role/name]))
+(def app-routes
+  ["/" {"" :portfolio
+        "people" :people
+        "about" :about}])
 
-(defui Person
-  static om/Ident
-  (ident [this {:keys [person/id]}]
-    [:person/by-id id])
-  static om/IQuery
-  (query [this]
-    [:person/id :person/name
-     :person/link :person/writeup
-     {:person/roles (om/get-query Role)}]))
+(defui Portfolio
+  Object
+  (render [this]
+    (dom/div nil "Portfolio")))
+
+(def portfolio-view (om/factory Portfolio))
 
 (defui Root
   static om/IQuery
   (query [this]
-    [{:people (om/get-query Person)}])
+    [:current-view {:people (om/get-query people/Person)}])
   Object
   (render [this]
-    (dom/div nil "om loaded")))
+    (let [{:keys [current-view people]} (om/props this)]
+      (println :current-view current-view (om/props this))
+      (dom/div nil
+        "Test"
+        (case current-view
+          :portfolio (portfolio-view)
+          :people (people/view people)
+          :about (dom/div nil "about")
+          (dom/div nil "404"))))))
 
 (def parser
   (om/parser
-    {:read read}))
+    {:read read
+     :mutate mutate}))
 
 (def reconciler
   (om/reconciler {:state init-state
                   :parser parser}))
 
 #?(:cljs
-   (om/add-root! reconciler
-     Root
-     (gdom/getElement "app")))
+   (do
+     (om/add-root! reconciler
+       Root
+       (gdom/getElement "app"))
 
+     (defn set-page! [matched]
+       (om/transact! reconciler
+         `[(page/set {:page-id (:handler matched)})
+           :current-view]))
+
+     (def history
+       (pushy/pushy set-page!
+         (partial bidi/match-route app-routes)))
+
+     (pushy/start! history)))

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
+    <title>website</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="website" sketch:type="MSLayerGroup">
+            <rect id="Rectangle-1-Copy" fill="#9E0013" sketch:type="MSShapeGroup" x="0" y="0" width="512" height="512"></rect>
+            <g id="byim" transform="translate(82.000000, 116.000000)" fill="#FFFFFF" sketch:type="MSShapeGroup">
+                <path d="M118.79,0 L118.79,35.495 L67.52,35.495 L67.52,244.51 L118.785,244.51 L118.785,280 L67.975,280 C49.06,280 35.975,265.1 35.975,246.17 L35.975,191.545 C35.975,172.62 20.2,157.28 0.48,157.28 L0.48,123.025 C20.195,123.025 35.975,107.685 35.975,88.765 L35.975,34.13 C35.975,15.21 49.06,0 67.975,0 L118.79,0 Z M312.025,88.765 L312.025,34.13 C312.025,15.205 298.94,0 280.03,0 L229.21,0 L229.21,35.495 L280.48,35.495 L280.48,244.51 L229.21,244.51 L229.21,280 L280.03,280 C298.94,280 312.025,265.1 312.025,246.17 L312.025,191.545 C312.025,172.62 327.795,157.28 347.52,157.28 L347.52,123.025 C327.81,123.025 312.025,107.685 312.025,88.765 L312.025,88.765 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>
