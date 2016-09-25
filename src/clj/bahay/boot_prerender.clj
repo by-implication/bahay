@@ -18,7 +18,7 @@
      [:title "By Implication"]
      (hiccup/include-css "css/styles.css")]
     [:body
-     html-string
+     [:div#app html-string]
      (hiccup/include-js "main.js")]))
 
 (defn- render-to-file!

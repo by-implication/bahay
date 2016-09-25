@@ -23,4 +23,5 @@
   [{:keys [state]} key {:keys [page-id]}]
   {:value {:keys [:current-view]}
    :action (fn []
+             (println "yo")
              (swap! state assoc :current-view page-id))})

@@ -19,7 +19,15 @@
   static om/IQuery
   (query [this]
     [:person/id :person/name
-     {:roles (om/get-query Role)}]))
+     {:roles (om/get-query Role)}])
+  Object
+  (render [this]
+    (let [{:keys [person/name person/roles]} (om/props this)]
+      (dom/div nil
+        (:nick name)))))
+
+(def person-view (om/factory Person
+                   {:keyfn :person/id}))
 
 (defui People
   static om/IQuery
@@ -27,7 +35,9 @@
     [{:people (om/get-query Person)}])
   Object
   (render [this]
-    (dom/div nil
-      "Test")))
+    (let [{:keys [people]} (om/props this)]
+      (dom/div nil
+        (mapv person-view
+          people)))))
 
 (def view (om/factory People))

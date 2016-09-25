@@ -14,7 +14,4 @@
     :person/roles [(roles :cof) (roles :dev) (roles :des)]
     :person/link "http://github.com/levitanong"
     :person/image-url "data/people/Levi.png"
-    :person/writeup "Lorem Ipsum Dolor"}
-   {:person/id 1
-    :person/name "Dude McDudeman"
-    :person/roles [(roles :cof) (roles :dev)]}])
+    :person/writeup "Lorem Ipsum Dolor"}])
