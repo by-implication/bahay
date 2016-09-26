@@ -16,7 +16,7 @@
 (defstyles base
   typography
   layout
-  [:body {:background-color 'wheat
+  [:body {:background-color 'white
           :margin 0}])
 
 (defstyles combined

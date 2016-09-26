@@ -1,6 +1,7 @@
 (ns bahay.boot-prerender
   {:boot/export-tasks true}
   (:require
+   [bahay.data :as bata]
    [bahay.kubo :as kubo]
    [bahay.people :as people]
    [boot.core :as c]
@@ -16,13 +17,13 @@
      [:meta {:http-equiv "X-UA-Compatible"
              :content "IE=edge"}]
      [:title "By Implication"]
-     (hiccup/include-css "css/styles.css")]
+     (hiccup/include-css "/css/styles.css")]
     [:body
      [:div#app html-string]
-     (hiccup/include-js "main.js")]))
+     (hiccup/include-js "/main.js")]))
 
 (defn- render-to-file!
-  [out-file route]
+  [out-file route params]
   (let [r (om/reconciler {:state (assoc kubo/init-state
                                    :current-view route)
                           :parser kubo/parser})
@@ -32,6 +33,30 @@
       io/make-parents
       (spit (html-wrapper html-string)))))
 
+(def all-paths
+  (->> (second bahay.kubo/app-routes)
+    (reduce (fn [paths [path route]]
+              (if (vector? path)
+                (let [[subpath _] path]
+                  (->> bahay.data/projects
+                    (reduce (fn [paths {:keys [project/id]}]
+                              (conj paths
+                                {:path (str subpath
+                                         (name id)
+                                         "/index.html")
+                                 :route :project
+                                 :params {:portfolio/id id}}))
+                      paths)))
+                (do
+                  (println path (clojure.string/blank? path))
+                  (conj paths
+                    {:path (str path
+                             (when-not (clojure.string/blank? path) "/")
+                             "index.html")
+                     #_(str path "index.html")
+                     :route route}))))
+      [])))
+
 (c/deftask om-prerender
   "Prerender frontend UI to index.html"
   []
@@ -39,11 +64,11 @@
     (fn middleware [next-handler]
       (fn handler [fileset]
         (c/empty-dir! tmp)
-        (doseq [[path route] (second kubo/app-routes)]
-          (let [out-file (io/file tmp (str path
-                                        (when-not (clojure.string/blank? path) "/")
-                                        "index.html"))]
-            (render-to-file! out-file route)))
+        (doseq [{:keys [path route params]} all-paths]
+          (let [out-file (io/file tmp path #_(str path
+                                               (when-not (clojure.string/blank? path) "/")
+                                               "index.html"))]
+            (render-to-file! out-file route params)))
         (-> fileset
           (c/add-resource tmp)
           c/commit!

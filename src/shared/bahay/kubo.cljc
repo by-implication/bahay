@@ -26,6 +26,7 @@
 
 (def app-routes
   ["/" {"" :portfolio
+        ["portfolio/" :id] :project
         "people" :people
         "about" :about}])
 
@@ -46,7 +47,7 @@
       (dom/div nil
         "Test"
         (dom/div nil
-          (dom/a #js {:href "people"}
+          (dom/a #js {:href "/people"}
             "People"))
         #?(:cljs (js/console.log current-view people))
         (case current-view
@@ -66,6 +67,7 @@
 
 #?(:cljs
    (do
+     (js/console.log "testing")
      (defn set-page! [matched]
        (js/console.log "matched!" matched)
        (om/transact! reconciler

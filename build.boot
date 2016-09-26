@@ -58,8 +58,11 @@
     (speak)
     (reload)
     (cljs-repl)
-    (cljs :source-map true :optimizations :none)
+    (cljs
+      :optimizations :none
+      :compiler-options {:asset-path "/main.out"})
     (garden :styles-var 'bahay.styles/base
       :output-to "css/styles.css")
-    (autoprefixer :files ["styles.css"])))
+    (autoprefixer :files ["styles.css"])
+    (target)))
 
