@@ -48,7 +48,6 @@
                                  :params {:portfolio/id id}}))
                       paths)))
                 (do
-                  (println path (clojure.string/blank? path))
                   (conj paths
                     {:path (str path
                              (when-not (clojure.string/blank? path) "/")
@@ -65,9 +64,7 @@
       (fn handler [fileset]
         (c/empty-dir! tmp)
         (doseq [{:keys [path route params]} all-paths]
-          (let [out-file (io/file tmp path #_(str path
-                                               (when-not (clojure.string/blank? path) "/")
-                                               "index.html"))]
+          (let [out-file (io/file tmp path)]
             (render-to-file! out-file route params)))
         (-> fileset
           (c/add-resource tmp)

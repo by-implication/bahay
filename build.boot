@@ -26,7 +26,7 @@
                   [org.martinklepsch/boot-garden "1.3.0-0"]
 
                   ;; shared
-                  [org.omcljs/om "1.0.0-alpha45"]
+                  [org.omcljs/om "1.0.0-alpha46"]
                   [bidi "2.0.10"]
 
                   ;; client
@@ -40,6 +40,7 @@
   '[adzerk.boot-cljs      :refer [cljs]]
   '[adzerk.boot-cljs-repl :refer [cljs-repl start-repl]]
   '[adzerk.boot-reload    :refer [reload]]
+  '[bahay.boot-om-style :refer [om-style]]
   '[bahay.boot-prerender :refer [om-prerender]]
   '[clojure.pprint :refer [pprint]]
   '[danielsz.autoprefixer :refer [autoprefixer]]
@@ -53,6 +54,9 @@
   (comp
     ;; (reload)
     (om-prerender)
+    (om-style
+      :root-class 'bahay.kubo/Root
+      :output-to "css/styles.css")
     (serve)
     (watch)
     (speak)
@@ -61,7 +65,7 @@
     (cljs
       :optimizations :none
       :compiler-options {:asset-path "/main.out"})
-    (garden :styles-var 'bahay.styles/base
+    #_(garden :styles-var 'bahay.styles/base
       :output-to "css/styles.css")
     (autoprefixer :files ["styles.css"])
     (target)))

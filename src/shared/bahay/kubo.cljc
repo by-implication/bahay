@@ -5,6 +5,7 @@
    #?@(:cljs [[devtools.core :as devtools]
               [goog.dom :as gdom]])
    [bahay.data :as bata]
+   [bahay.om-style :as os]
    [bahay.parser :refer [read mutate]]
    [bahay.people :as people]
    [bidi.bidi :as bidi]
@@ -38,18 +39,21 @@
 (def portfolio-view (om/factory Portfolio))
 
 (defui Root
+  static os/Style
+  (style [this]
+    [:.bahay (os/get-style people/People)])
   static om/IQuery
   (query [this]
     [:current-view {:people (om/get-query people/Person)}])
   Object
   (render [this]
     (let [{:keys [current-view people]} (om/props this)]
-      (dom/div nil
+      #?(:cljs (js/console.log (os/get-style people/People)))
+      (dom/div #js {:className "bahay"}
         "Test"
         (dom/div nil
           (dom/a #js {:href "/people"}
             "People"))
-        #?(:cljs (js/console.log current-view people))
         (case current-view
           :portfolio (portfolio-view)
           :people (people/view {:people people})
