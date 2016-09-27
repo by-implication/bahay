@@ -52,15 +52,15 @@
   "Run app"
   []
   (comp
-    ;; (reload)
+    (serve)
+    (watch)
+    (reload)
+    (speak)
     (om-prerender)
     (om-style
       :root-class 'bahay.kubo/Root
       :output-to "css/styles.css")
-    (serve)
-    (watch)
-    (speak)
-    (reload)
+    ;; (reload)
     (cljs-repl)
     (cljs
       :optimizations :none

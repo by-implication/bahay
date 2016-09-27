@@ -66,6 +66,7 @@
         (doseq [{:keys [path route params]} all-paths]
           (let [out-file (io/file tmp path)]
             (render-to-file! out-file route params)))
+        (println "am i prerendering again?")
         (-> fileset
           (c/add-resource tmp)
           c/commit!

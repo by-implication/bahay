@@ -16,7 +16,7 @@
 (defui Person
   static os/Style
   (style [this]
-    [:.person {:background-color 'pink}])
+    [:.person {:background-color :pink}])
   static om/Ident
   (ident [this {:keys [person/id]}]
     [:person/by-id id])

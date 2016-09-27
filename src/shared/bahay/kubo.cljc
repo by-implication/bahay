@@ -41,7 +41,10 @@
 (defui Root
   static os/Style
   (style [this]
-    [:.bahay (os/get-style people/People)])
+    [:.bahay {:font-family :Arial
+              :color :blue
+              :text-decoration :underline}
+     (os/get-style people/People)])
   static om/IQuery
   (query [this]
     [:current-view {:people (om/get-query people/Person)}])
