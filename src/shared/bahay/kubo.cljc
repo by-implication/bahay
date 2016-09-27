@@ -53,7 +53,7 @@
     (let [{:keys [current-view people]} (om/props this)]
       #?(:cljs (js/console.log (os/get-style people/People)))
       (dom/div #js {:className "bahay"}
-        "Test"
+        "Testing"
         (dom/div nil
           (dom/a #js {:href "/people"}
             "People"))

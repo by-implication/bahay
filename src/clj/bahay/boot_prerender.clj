@@ -4,7 +4,8 @@
    [bahay.data :as bata]
    [bahay.kubo :as kubo]
    [bahay.people :as people]
-   [boot.core :as c]
+   [boot.core :as boot :refer [deftask]]
+   [boot.util :as util]
    [clojure.java.io :as io]
    [hiccup.page :as hiccup]
    [om.dom :as dom]
@@ -33,7 +34,7 @@
       io/make-parents
       (spit (html-wrapper html-string)))))
 
-(def all-paths
+(defn all-paths []
   (->> (second bahay.kubo/app-routes)
     (reduce (fn [paths [path route]]
               (if (vector? path)
@@ -56,18 +57,17 @@
                      :route route}))))
       [])))
 
-(c/deftask om-prerender
+(deftask om-prerender
   "Prerender frontend UI to index.html"
   []
-  (let [tmp (c/tmp-dir!)]
-    (fn middleware [next-handler]
-      (fn handler [fileset]
-        (c/empty-dir! tmp)
-        (doseq [{:keys [path route params]} all-paths]
-          (let [out-file (io/file tmp path)]
-            (render-to-file! out-file route params)))
-        (println "am i prerendering again?")
-        (-> fileset
-          (c/add-resource tmp)
-          c/commit!
-          (next-handler))))))
+  (let [tmp (boot/tmp-dir!)]
+    (boot/with-pre-wrap fileset
+      (require 'bahay.kubo :reload)
+      (boot/empty-dir! tmp)
+      (util/info "Prerendering...\n")
+      (doseq [{:keys [path route params]} (all-paths)]
+        (let [out-file (io/file tmp path)]
+          (render-to-file! out-file route params)))
+      (-> fileset
+        (boot/add-resource tmp)
+        boot/commit!))))
