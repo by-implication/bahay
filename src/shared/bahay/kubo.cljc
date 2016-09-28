@@ -42,7 +42,7 @@
   static os/Style
   (style [this]
     [:.bahay {:font-family :Arial
-              :color :blue
+              :color :red
               :text-decoration :underline}
      (os/get-style people/People)])
   static om/IQuery
@@ -74,7 +74,6 @@
 
 #?(:cljs
    (do
-     (js/console.log "testing")
      (defn set-page! [matched]
        (js/console.log "matched!" matched)
        (om/transact! reconciler

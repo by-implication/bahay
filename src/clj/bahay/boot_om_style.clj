@@ -6,7 +6,8 @@
    [boot.core :as boot :refer [deftask]]
    [boot.pod :as pod]
    [boot.util :as util]
-   [clojure.java.io :as io]))
+   [clojure.java.io :as io]
+   [garden.core :as garden]))
 
 (def processed (atom #{}))
 
@@ -40,15 +41,31 @@ colocated styles of a root om.next class"
       (def cns (ns-tracker.core/ns-tracker ~src-paths)))
     (boot/with-pre-wrap fileset
       (boot/empty-dir! tmp)
-      (let [initial (not (contains? @processed root-class))
+      (do
+        (require ns-sym :reload)
+        (util/info "Compiling %s...\n" (.getName out-file))
+        (io/make-parents out-file)
+        (garden.core/css
+          {:pretty-print? pretty-print
+           :output-to (.getPath out-file)}
+          (->> root-class
+            resolve
+            var-get
+            os/get-style)))
+      #_(let [initial (not (contains? @processed root-class))
             changed-ns (pod/with-eval-in ns-pod (cns))]
         (when (or initial (some #{ns-sym} changed-ns))
+          ;; TODO: Experiment with just doing (require ... :reload)
+          ;; and then see how fast it loads.
           (let [garden-pod (garden-pods :refresh)]
             (when initial (swap! processed conj root-class))
             (util/info "Compiling %s...\n" (.getName out-file))
             (io/make-parents out-file)
+            (time (require 'bahay.kubo :reload))
             (pod/with-eval-in garden-pod
-              (require '~ns-sym)
+              (time (require 'bahay.kubo #_'~ns-sym))
+              (time (require 'bahay.kubo))
+              (time (require 'bahay.kubo :reload))
               (garden.core/css
                 {:pretty-print? ~pretty-print
                  :output-to ~(.getPath out-file)}

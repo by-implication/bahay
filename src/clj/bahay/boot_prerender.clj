@@ -36,25 +36,27 @@
 
 (defn all-paths []
   (->> (second bahay.kubo/app-routes)
-    (reduce (fn [paths [path route]]
-              (if (vector? path)
-                (let [[subpath _] path]
-                  (->> bahay.data/projects
-                    (reduce (fn [paths {:keys [project/id]}]
-                              (conj paths
-                                {:path (str subpath
-                                         (name id)
-                                         "/index.html")
-                                 :route :project
-                                 :params {:portfolio/id id}}))
-                      paths)))
-                (do
+    (reduce
+      (fn [paths [path route]]
+        (if (vector? path)
+          (let [[subpath _] path]
+            (->> bahay.data/projects
+              (reduce
+                (fn [paths {:keys [project/id]}]
                   (conj paths
-                    {:path (str path
-                             (when-not (clojure.string/blank? path) "/")
-                             "index.html")
-                     #_(str path "index.html")
-                     :route route}))))
+                    {:path (str subpath
+                             (name id)
+                             "/index.html")
+                     :route :project
+                     :params {:portfolio/id id}}))
+                paths)))
+          (do
+            (conj paths
+              {:path (str path
+                       (when-not (clojure.string/blank? path) "/")
+                       "index.html")
+               #_(str path "index.html")
+               :route route}))))
       [])))
 
 (deftask om-prerender
