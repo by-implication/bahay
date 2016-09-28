@@ -64,12 +64,13 @@
   []
   (let [tmp (boot/tmp-dir!)]
     (boot/with-pre-wrap fileset
-      (require 'bahay.kubo :reload)
-      (boot/empty-dir! tmp)
-      (util/info "Prerendering...\n")
-      (doseq [{:keys [path route params]} (all-paths)]
-        (let [out-file (io/file tmp path)]
-          (render-to-file! out-file route params)))
-      (-> fileset
-        (boot/add-resource tmp)
-        boot/commit!))))
+      (do
+        (require 'bahay.kubo :reload)
+        (boot/empty-dir! tmp)
+        (util/info "Prerendering...\n")
+        (doseq [{:keys [path route params]} (all-paths)]
+          (let [out-file (io/file tmp path)]
+            (render-to-file! out-file route params)))
+        (-> fileset
+          (boot/add-resource tmp)
+          boot/commit!)))))

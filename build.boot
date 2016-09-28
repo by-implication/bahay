@@ -64,7 +64,8 @@
     (cljs-repl)
     (cljs
       :optimizations :none
-      :compiler-options {:asset-path "/main.out"})
+      :compiler-options {:asset-path "/main.out"}
+      )
     #_(garden :styles-var 'bahay.styles/base
       :output-to "css/styles.css")
     (autoprefixer :files ["styles.css"])

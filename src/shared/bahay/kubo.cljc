@@ -8,6 +8,7 @@
    [bahay.om-style :as os]
    [bahay.parser :refer [read mutate]]
    [bahay.people :as people]
+   [bahay.portfolio :as portfolio]
    [bidi.bidi :as bidi]
    [om.dom :as dom]
    [om.next :as om :refer [defui]]
@@ -23,7 +24,8 @@
 
 (def init-state
   {:current-view :portfolio
-   :people bata/people})
+   :people bata/people
+   :projects bata/projects})
 
 (def app-routes
   ["/" {"" :portfolio
@@ -31,12 +33,11 @@
         "people" :people
         "about" :about}])
 
-(defui Portfolio
-  Object
-  (render [this]
-    (dom/div nil "Portfolio")))
-
-(def portfolio-view (om/factory Portfolio))
+(defui Toolbar
+  static os/Style
+  (style [this]
+    (list
+      [:.toolbar {:background :white}])))
 
 (defui Root
   static os/Style
@@ -47,7 +48,9 @@
      (os/get-style people/People)])
   static om/IQuery
   (query [this]
-    [:current-view {:people (om/get-query people/Person)}])
+    [:current-view
+     {:people (om/get-query people/Person)}
+     {:portfolio (om/get-query portfolio/Project)}])
   Object
   (render [this]
     (let [{:keys [current-view people]} (om/props this)]
@@ -58,7 +61,7 @@
           (dom/a #js {:href "/people"}
             "People"))
         (case current-view
-          :portfolio (portfolio-view)
+          :portfolio (portfolio/view)
           :people (people/view {:people people})
           :about (dom/div nil "about")
           (dom/div nil "404"))))))

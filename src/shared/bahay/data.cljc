@@ -16,20 +16,22 @@
     :person/image-url "data/people/Levi.png"
     :person/writeup "Lorem Ipsum Dolor"}])
 
+(def services
+  {:ui {:service/id :ui :service/name "UI Design"}
+   :dev {:service/id :dev :service/name "Development"}
+   :dir {:service/id :dir :service/name "Business Direction"}
+   :big {:service/id :big :service/name "Big Data"}})
+
 (def projects
-  [{:project/id :badger
-    :project/name "Budget Badger"}
+  [{:project/id :sakay
+    :project/name "Sakay"
+    :project/ownership :self
+    :project/services [(services :ui) (services :dev) (services :big)]}
    {:project/id :openrecon
-    :project/name "Open Reconsutrction"}
-   {:project/id :sakay
-    :project/name "Sakay"}
-   {:project/id :sari
-    :project/name "Sari"}
+    :project/name "Open Reconstruction"
+    :project/ownership :client
+    :project/services [(services :ui) (services :dev)]}
    {:project/id :storylark
     :project/name "Storylark"}
-   {:project/id :torch
-    :project/name "Torch"}
-   {:project/id :website
-    :project/name "By Implication"}
-   {:project/id :wildfire
+   #_{:project/id :wildfire
     :project/name "Wildfire"}])
