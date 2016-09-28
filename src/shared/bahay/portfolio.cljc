@@ -4,6 +4,14 @@
    [om.dom :as dom]
    [om.next :as om :refer [defui]]))
 
+(defui Service
+  static om/Ident
+  (ident [this {:keys [service/id]}]
+    [:service/by-id id])
+  static om/IQuery
+  (query [this]
+    [:service/id :service/name]))
+
 (defui Project
   static om/Ident
   (ident [this {:keys [project/id]}]
@@ -13,7 +21,7 @@
     [:project/id
      :project/name
      :project/ownership
-     :project/services]))
+     {:project/services (om/get-query Service)}]))
 
 (defui Portfolio
   static om/IQuery

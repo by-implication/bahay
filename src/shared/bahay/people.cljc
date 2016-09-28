@@ -23,7 +23,7 @@
   static om/IQuery
   (query [this]
     [:person/id :person/name
-     {:roles (om/get-query Role)}])
+     {:person/roles (om/get-query Role)}])
   Object
   (render [this]
     (let [{:keys [person/name person/roles]} (om/props this)]

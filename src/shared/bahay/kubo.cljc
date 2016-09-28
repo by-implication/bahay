@@ -50,7 +50,7 @@
   (query [this]
     [:current-view
      {:people (om/get-query people/Person)}
-     {:portfolio (om/get-query portfolio/Project)}])
+     {:projects (om/get-query portfolio/Project)}])
   Object
   (render [this]
     (let [{:keys [current-view people]} (om/props this)]
