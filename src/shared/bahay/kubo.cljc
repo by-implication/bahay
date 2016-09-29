@@ -5,6 +5,7 @@
    #?@(:cljs [[devtools.core :as devtools]
               [goog.dom :as gdom]])
    [bahay.data :as bata]
+   [bahay.home :as home]
    [bahay.om-style :as os]
    [bahay.parser :refer [read mutate]]
    [bahay.people :as people]
@@ -27,12 +28,13 @@
      #_(def println js/console.log)))
 
 (def init-state
-  {:current-view :portfolio
+  {:current-view :home
+   :services (vec (vals bata/services))
    :people bata/people
    :projects bata/projects})
 
 (def app-routes
-  ["/" {"" :portfolio
+  ["/" {"" :home
         ["portfolio/" :id] :project
         "people" :people
         "about" :about}])
@@ -41,13 +43,12 @@
   static os/Style
   (style [this]
     [:.toolbar {:background :white
-                :height (px 64)
-                :padding [[0 (px 16)]]}
+                :height (px 64)}
      [:a {:color t/dark
           :text-decoration :none}]])
   Object
   (render [this]
-    (dom/div #js {:className "toolbar h stacked centered guttered"}
+    (dom/div #js {:className "toolbar h stacked centered guttered container"}
       (dom/a #js {:href "/"} "By Implication")
       (layout/spacer)
       (dom/a #js {:href "/people"} "People")
@@ -64,22 +65,20 @@
       [:body {:margin 0}]
       [:.bahay
        (os/get-style Toolbar)
-       (os/get-style people/People)]))
+       (os/get-style people/People)
+       (os/get-style home/Home)]))
   static om/IQuery
   (query [this]
     [:current-view
      {:people (om/get-query people/Person)}
-     {:projects (om/get-query portfolio/Project)}])
+     {:home (om/get-query home/Home)}])
   Object
   (render [this]
-    (let [{:keys [current-view people projects]} (om/props this)]
+    (let [{:keys [current-view people home]} (om/props this)]
       (dom/div #js {:className "bahay"}
         (toolbar-view)
-        (dom/div nil
-          (dom/a #js {:href "/people"}
-            "People"))
         (case current-view
-          :portfolio (portfolio/view {:projects projects})
+          :home (home/home-view home)
           :people (people/view {:people people})
           :about (dom/div nil "about")
           (dom/div nil "404"))))))
