@@ -36,15 +36,22 @@
 (defui Toolbar
   static os/Style
   (style [this]
-    (list
-      [:.toolbar {:background :white}])))
+    [:.toolbar {:background :white}])
+  Object
+  (render [this]
+    (dom/div #js {:className "toolbar"}
+      "By Implication")))
+
+(def toolbar-view (om/factory Toolbar))
 
 (defui Root
   static os/Style
   (style [this]
-    [:.bahay {:font-family :Arial
+    [:.bahay {:font-family :Roboto
+              :font-weight 300
               :color :red
               :text-decoration :underline}
+     (os/get-style Toolbar)
      (os/get-style people/People)])
   static om/IQuery
   (query [this]
@@ -56,7 +63,7 @@
     (let [{:keys [current-view people]} (om/props this)]
       #?(:cljs (js/console.log (os/get-style people/People)))
       (dom/div #js {:className "bahay"}
-        "Testing"
+        (toolbar-view)
         (dom/div nil
           (dom/a #js {:href "/people"}
             "People"))

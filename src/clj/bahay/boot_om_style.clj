@@ -41,8 +41,9 @@ colocated styles of a root om.next class"
       (def cns (ns-tracker.core/ns-tracker ~src-paths)))
     (boot/with-pre-wrap fileset
       (boot/empty-dir! tmp)
-      (do
-        (require ns-sym :reload)
+      (let [changed-ns (pod/with-eval-in ns-pod (cns))]
+        (doseq [n changed-ns]
+          (require n :reload))
         (util/info "Compiling %s...\n" (.getName out-file))
         (io/make-parents out-file)
         (garden.core/css

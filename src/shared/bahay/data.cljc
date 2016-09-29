@@ -26,7 +26,8 @@
   [{:project/id :sakay
     :project/name "Sakay"
     :project/ownership :self
-    :project/services [(services :ui) (services :dev) (services :big)]}
+    :project/services [(services :ui) (services :dev) (services :big)]
+    :project/featured true}
    {:project/id :openrecon
     :project/name "Open Reconstruction"
     :project/ownership :client

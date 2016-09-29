@@ -5,6 +5,7 @@
    [bahay.kubo :as kubo]
    [bahay.people :as people]
    [boot.core :as boot :refer [deftask]]
+   [boot.pod :as pod]
    [boot.util :as util]
    [clojure.java.io :as io]
    [hiccup.page :as hiccup]
@@ -59,13 +60,24 @@
                :route route}))))
       [])))
 
+(defn ns-tracker-pod []
+  (->> '[[ns-tracker "0.3.0"] [org.clojure/tools.namespace "0.2.11"]]
+    (assoc (boot/get-env) :dependencies)
+    pod/make-pod))
+
 (deftask om-prerender
   "Prerender frontend UI to index.html"
   []
-  (let [tmp (boot/tmp-dir!)]
+  (let [tmp (boot/tmp-dir!)
+        src-paths (vec (boot/get-env :source-paths))
+        ns-pod (ns-tracker-pod)]
+    (pod/with-eval-in ns-pod
+      (require 'ns-tracker.core)
+      (def cns (ns-tracker.core/ns-tracker ~src-paths)))
     (boot/with-pre-wrap fileset
-      (do
-        (require 'bahay.kubo :reload)
+      (let [changed-ns (pod/with-eval-in ns-pod (cns))]
+        (doseq [n changed-ns]
+          (require n :reload))
         (boot/empty-dir! tmp)
         (util/info "Prerendering...\n")
         (doseq [{:keys [path route params]} (all-paths)]
