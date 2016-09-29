@@ -1,5 +1,5 @@
 (ns bahay.kubo
-  #?(:clj (:refer-clojure :exclude [read]))
+  #?(:clj (:refer-clojure :exclude [read rem]))
   ;; #?(:cljs (:refer-clojure :exclude [println]))
   (:require
    #?@(:cljs [[devtools.core :as devtools]
@@ -9,7 +9,11 @@
    [bahay.parser :refer [read mutate]]
    [bahay.people :as people]
    [bahay.portfolio :as portfolio]
+   [bahay.style :refer [typography]]
+   [bahay.style.layout :as layout :refer [layout]]
+   [bahay.style.theme :as t]
    [bidi.bidi :as bidi]
+   [garden.units :refer [px percent]]
    [om.dom :as dom]
    [om.next :as om :refer [defui]]
    #?(:cljs [pushy.core :as pushy])
@@ -36,23 +40,31 @@
 (defui Toolbar
   static os/Style
   (style [this]
-    [:.toolbar {:background :white}])
+    [:.toolbar {:background :white
+                :height (px 64)
+                :padding [[0 (px 16)]]}
+     [:a {:color t/dark
+          :text-decoration :none}]])
   Object
   (render [this]
-    (dom/div #js {:className "toolbar"}
-      "By Implication")))
+    (dom/div #js {:className "toolbar h stacked centered guttered"}
+      (dom/a #js {:href "/"} "By Implication")
+      (layout/spacer)
+      (dom/a #js {:href "/people"} "People")
+      (dom/a #js {:href "/projects"} "Projects"))))
 
 (def toolbar-view (om/factory Toolbar))
 
 (defui Root
   static os/Style
   (style [this]
-    [:.bahay {:font-family :Roboto
-              :font-weight 300
-              :color :red
-              :text-decoration :underline}
-     (os/get-style Toolbar)
-     (os/get-style people/People)])
+    (list
+      layout
+      typography
+      [:body {:margin 0}]
+      [:.bahay
+       (os/get-style Toolbar)
+       (os/get-style people/People)]))
   static om/IQuery
   (query [this]
     [:current-view
@@ -60,15 +72,14 @@
      {:projects (om/get-query portfolio/Project)}])
   Object
   (render [this]
-    (let [{:keys [current-view people]} (om/props this)]
-      #?(:cljs (js/console.log (os/get-style people/People)))
+    (let [{:keys [current-view people projects]} (om/props this)]
       (dom/div #js {:className "bahay"}
         (toolbar-view)
         (dom/div nil
           (dom/a #js {:href "/people"}
             "People"))
         (case current-view
-          :portfolio (portfolio/view)
+          :portfolio (portfolio/view {:projects projects})
           :people (people/view {:people people})
           :about (dom/div nil "about")
           (dom/div nil "404"))))))

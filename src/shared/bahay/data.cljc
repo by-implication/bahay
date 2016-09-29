@@ -24,15 +24,16 @@
 
 (def projects
   [{:project/id :sakay
-    :project/name "Sakay"
+    :project/label "Sakay"
     :project/ownership :self
     :project/services [(services :ui) (services :dev) (services :big)]
     :project/featured true}
    {:project/id :openrecon
-    :project/name "Open Reconstruction"
+    :project/label "Open Reconstruction"
     :project/ownership :client
     :project/services [(services :ui) (services :dev)]}
    {:project/id :storylark
-    :project/name "Storylark"}
+    :project/label "Storylark"
+    :project/ownership :self}
    #_{:project/id :wildfire
     :project/name "Wildfire"}])

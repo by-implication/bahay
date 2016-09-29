@@ -19,9 +19,21 @@
   static om/IQuery
   (query [this]
     [:project/id
-     :project/name
+     :project/label
      :project/ownership
-     {:project/services (om/get-query Service)}]))
+     :project/featured
+     {:project/services (om/get-query Service)}])
+  Object
+  (render [this]
+    (let [{:keys [project/id
+                  project/label
+                  project/ownership
+                  project/services]} (om/props this)]
+      (dom/div nil
+        (dom/div nil label)
+        (dom/div nil (name ownership))))))
+
+(def project-view (om/factory Project))
 
 (defui Portfolio
   static om/IQuery
@@ -29,6 +41,13 @@
     [{:projects (om/get-query Project)}])
   Object
   (render [this]
-    (dom/div nil "projects")))
+    (let [{:keys [projects]} (om/props this)
+          [featured & others] projects]
+      #?(:cljs (js/console.log others))
+      (dom/div nil
+        (project-view featured)
+        (apply dom/div nil
+          (mapv (fn [p] (project-view p))
+            others))))))
 
 (def view (om/factory Portfolio))
