@@ -63,6 +63,7 @@
       layout
       typography
       [:body {:margin 0}]
+      [:img {:max-width (percent 100)}]
       [:.bahay
        (os/get-style Toolbar)
        (os/get-style people/People)

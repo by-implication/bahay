@@ -37,20 +37,23 @@
      :project/label
      :project/ownership
      :project/featured
+     :project/accent
+     :project/image-url
      {:project/services (om/get-query Service)}])
   Object
   (render [this]
     (let [{:keys [project/id
                   project/label
                   project/ownership
+                  project/accent
+                  project/image-url
                   project/services]} (om/props this)]
       (dom/div #js {:className "project"}
         (dom/div nil label)
         (dom/div nil (name ownership))
         (apply dom/div nil (mapv service-view services))
-        (dom/div #js {:style #js {:width "100%"
-                                  :height "500px"
-                                  :backgroundColor "#333"}})))))
+        (dom/div #js {:style {:background-color accent}}
+          (dom/img #js {:src image-url}))))))
 
 (def project-view (om/factory Project
                     {:keyfn :project/id}))

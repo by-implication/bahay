@@ -1,5 +1,8 @@
 (ns bahay.data)
 
+(def asset-url
+  "http://assets.byimplication.com/site/")
+
 (def roles
   {:cof {:role/id :cof :role/name "Co-Founder"}
    :dev {:role/id :dev :role/name "Developer"}
@@ -33,13 +36,16 @@
                        (services :big)
                        (services :ios)
                        (services :and)]
-    :project/featured true}
+    :project/featured true
+    :project/accent "#2a6d45"
+    :project/image-url (str asset-url "projects/sakay/sakay-timedate-mockup.jpg")}
    {:project/id :openrecon
     :project/label "Open Reconstruction"
     :project/ownership :client
     :project/services [(services :ui) (services :dev)]}
    {:project/id :storylark
     :project/label "Storylark"
-    :project/ownership :self}
+    :project/ownership :self
+    :project/services [(services :ui) (services :dev)]}
    #_{:project/id :wildfire
     :project/name "Wildfire"}])

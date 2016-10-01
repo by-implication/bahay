@@ -2,6 +2,7 @@
   (:require
    [bahay.om-style :as os]
    [bahay.portfolio :as portfolio]
+   [garden.units :refer [px percent]]
    [om.dom :as dom]
    [om.next :as om :refer [defui]]))
 
@@ -39,7 +40,12 @@
 (defui Home
   static os/Style
   (style [this]
-    [:.home (os/get-style portfolio/Portfolio)])
+    [:.home
+     (os/get-style portfolio/Portfolio)
+     [:#hero
+      [:h1 {:text-align :center
+            :font-weight 300
+            :font-size (px 64)}]]])
   static om/IQuery
   (query [this]
     [{:projects (om/get-query portfolio/Project)}
@@ -48,6 +54,8 @@
   (render [this]
     (let [{:keys [projects services]} (om/props this)]
       (dom/div #js {:className "home"}
+        (dom/div #js {:id "hero"}
+          (dom/h1 nil "We help people do more."))
         (portfolio/view {:projects projects})
         (services-view {:services services})))))
 
