@@ -43,12 +43,13 @@
   static os/Style
   (style [this]
     [:.toolbar {:background :white
+                :padding [[0 (px 32)]]
                 :height (px 64)}
      [:a {:color t/dark
           :text-decoration :none}]])
   Object
   (render [this]
-    (dom/div #js {:className "toolbar h stacked centered guttered container"}
+    (dom/div #js {:className "toolbar h stacked centered guttered"}
       (dom/a #js {:href "/"} "By Implication")
       (layout/spacer)
       (dom/a #js {:href "/people"} "People")

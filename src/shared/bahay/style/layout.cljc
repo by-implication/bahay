@@ -33,8 +33,8 @@
                :box-sizing 'border-box}]
     [:.relative {:position 'relative}]
     [:.fixed {:position 'fixed}]
-    [:.container {:padding [[0 (px 32)]]}
-     #_{:max-width (px 940)
+    [:.container #_{:padding [[0 (px 32)]]}
+     {:max-width (px 980)
         :width (percent 100)
         :margin-left 'auto
         :margin-right 'auto}]

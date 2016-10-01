@@ -1,7 +1,7 @@
 (ns bahay.portfolio
   (:require
    [bahay.om-style :as os]
-   [garden.units :refer [px percent]]
+   [garden.units :refer [px percent s]]
    [om.dom :as dom]
    [om.next :as om :refer [defui]]))
 
@@ -27,7 +27,21 @@
 (defui Project
   static os/Style
   (style [this]
-    [:.project (os/get-style Service)])
+    [:.project
+     (os/get-style Service)
+     [:&:hover [:.accent-screen {:opacity 0}]]
+     [:.info {:padding [[0 (px 16)]]
+              :width (px 240)
+              :text-transform :capitalize}]
+     [:.label {:margin 0}]
+     [:.project-image {:position :relative}
+      [:img {:display :block}]]
+     [:.accent-screen {:height (percent 100)
+                       :width (percent 100)
+                       :top (px 0)
+                       :position :absolute
+                       :transition [[:opacity (s 0.2)]]
+                       :opacity 0.6}]])
   static om/Ident
   (ident [this {:keys [project/id]}]
     [:project/by-id id])
@@ -47,13 +61,17 @@
                   project/ownership
                   project/accent
                   project/image-url
-                  project/services]} (om/props this)]
-      (dom/div #js {:className "project"}
-        (dom/div nil label)
-        (dom/div nil (name ownership))
-        (apply dom/div nil (mapv service-view services))
-        (dom/div #js {:style {:background-color accent}}
-          (dom/img #js {:src image-url}))))))
+                  project/services]} (om/props this)
+          image-url (or image-url "http://loremflickr.com/480/240")]
+      (dom/div #js {:className "project v stacked guttered"}
+        (dom/div #js {:className "info"}
+          (dom/h3 #js {:className "label"} label)
+          (dom/div nil (name ownership))
+          (apply dom/div nil (mapv service-view services)))
+        (dom/div #js {:className "project-image grow"}
+          (dom/img #js {:src image-url})
+          (dom/div #js {:className "accent-screen"
+                        :style #js {:background-color accent}}))))))
 
 (def project-view (om/factory Project
                     {:keyfn :project/id}))

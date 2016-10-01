@@ -30,7 +30,7 @@
 (def projects
   [{:project/id :sakay
     :project/label "Sakay"
-    :project/ownership :self
+    :project/ownership :in-house
     :project/services [(services :ui)
                        (services :dev)
                        (services :big)
@@ -45,7 +45,7 @@
     :project/services [(services :ui) (services :dev)]}
    {:project/id :storylark
     :project/label "Storylark"
-    :project/ownership :self
+    :project/ownership :in-house
     :project/services [(services :ui) (services :dev)]}
    #_{:project/id :wildfire
     :project/name "Wildfire"}])
