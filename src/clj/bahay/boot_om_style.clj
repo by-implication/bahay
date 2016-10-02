@@ -41,18 +41,21 @@ colocated styles of a root om.next class"
       (def cns (ns-tracker.core/ns-tracker ~src-paths)))
     (boot/with-pre-wrap fileset
       (boot/empty-dir! tmp)
-      (let [changed-ns (pod/with-eval-in ns-pod (cns))]
+      (let [changed-ns (pod/with-eval-in ns-pod (cns))
+            garden-pod (garden-pods :refresh)]
         (doseq [n changed-ns]
           (require n :reload))
         (util/info "Compiling %s...\n" (.getName out-file))
         (io/make-parents out-file)
-        (garden.core/css
-          {:pretty-print? pretty-print
-           :output-to (.getPath out-file)}
-          (->> root-class
-            resolve
-            var-get
-            os/get-style)))
+        (let [out-style (->> root-class
+                          resolve
+                          var-get
+                          os/get-style)]
+          (pod/with-eval-in garden-pod
+            (garden.core/css
+              {:pretty-print? ~pretty-print
+               :output-to ~(.getPath out-file)}
+              '~out-style))))
       #_(let [initial (not (contains? @processed root-class))
             changed-ns (pod/with-eval-in ns-pod (cns))]
         (when (or initial (some #{ns-sym} changed-ns))
