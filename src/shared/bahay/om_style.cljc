@@ -17,7 +17,7 @@
   Replaces all dots with underscores. "
      [x]
      (let [class (if (om/component? x)
-                   (om/react-key x) x)
+                   (om/react-type x) x)
            {:keys [component-name
                    component-ns]} (meta class)]
        (str
@@ -34,13 +34,18 @@
      (clojure.string/replace
        (.-name class) "$" "_")))
 
-(defn localize
-  "Given a class and keyword, namespace the keyword
+(defn qualify
+  "Given a class and keyword, qualify the keyword
   with the appropriate class namespace."
   [component-class css-classname]
   (str (if (keyword? css-classname) ".")
     (gen-css-namespace component-class)
     "_" (name css-classname)))
 
-(defn ns-classnames [non-ns-classes ns-classes]
+(defn qualify-css-data
+  "recursively qualify the classnames of a garden data structure.
+  Base case: [classname attr-map]
+  Recursive case: [classname attr-map & children]
+  children may include vectors as above, or lists of vectors."
+  [css-data]
   )
