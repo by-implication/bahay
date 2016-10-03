@@ -13,10 +13,12 @@
 
 #?(:clj
    (defn gen-css-namespace
-     "Generate css namespace from om.next class.
-  Replaces all dots with underscores."
-     [class]
-     (let [{:keys [component-name
+     "Generate css namespace from om.next class or component.
+  Replaces all dots with underscores. "
+     [x]
+     (let [class (if (om/component? x)
+                   (om/react-key x) x)
+           {:keys [component-name
                    component-ns]} (meta class)]
        (str
          (clojure.string/replace
@@ -39,3 +41,6 @@
   (str (if (keyword? css-classname) ".")
     (gen-css-namespace component-class)
     "_" (name css-classname)))
+
+(defn ns-classnames [non-ns-classes ns-classes]
+  )

@@ -62,7 +62,8 @@
                   project/accent
                   project/image-url
                   project/services]} (om/props this)
-          image-url (or image-url "http://loremflickr.com/480/240")]
+          image-url (or image-url "http://loremflickr.com/480/240")
+          accent (or accent "#fff")]
       (dom/div #js {:className "project v stacked guttered"}
         (dom/div #js {:className "info"}
           (dom/h3 #js {:className "label"} label)
@@ -71,7 +72,7 @@
         (dom/div #js {:className "project-image grow"}
           (dom/img #js {:src image-url})
           (dom/div #js {:className "accent-screen"
-                        :style #js {:background-color accent}}))))))
+                        :style #js {:backgroundColor accent}}))))))
 
 (def project-view (om/factory Project
                     {:keyfn :project/id}))

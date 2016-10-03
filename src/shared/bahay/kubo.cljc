@@ -23,6 +23,7 @@
 #?(:cljs
    (do
      (devtools/install!)
+     (enable-console-print!)
      ;; below instead of enable-console-print!
      ;; for compatibility with devtools.
      #_(def println js/console.log)))
