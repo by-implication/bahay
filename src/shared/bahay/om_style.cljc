@@ -1,15 +1,23 @@
 (ns bahay.om-style
   (:require
+   #?(:clj [clojure.spec :as s]
+      :cljs [cljs.spec :as s])
+   [garden.spec]
    [om.next :as om]))
 
 (defprotocol Style
   (style [this]))
 
 (defn get-style
-  "Gets the colocated style of either a component or a class"
+  "Gets the colocated style of either a component or a class
+  Adds the class as meta"
   [x]
-  #?(:clj ((:style (meta x)) x)
-     :cljs (style x)))
+  (let [class (if (om/component? x)
+                (om/react-type x) x)]
+    (with-meta
+      #?(:clj ((:style (meta class)) class)
+         :cljs (style class))
+      {:component class})))
 
 #?(:clj
    (defn gen-css-namespace

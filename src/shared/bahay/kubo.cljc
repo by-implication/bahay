@@ -78,6 +78,7 @@
   Object
   (render [this]
     (let [{:keys [current-view people home]} (om/props this)]
+      #?(:cljs (js/console.log (os/get-style this)))
       (dom/div #js {:className "bahay"}
         (toolbar-view)
         (case current-view
