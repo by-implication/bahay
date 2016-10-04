@@ -2,6 +2,7 @@
   #?(:clj (:refer-clojure :exclude [read]))
   (:require
    [bahay.home :as home]
+   [bahay.company :as company]
    [bahay.people :as people]
    [bahay.portfolio :as portfolio]
    [om.next :as om]))
@@ -30,6 +31,12 @@
   [{:keys [state]} key _]
   (let [st @state]
     {:value (om/db->tree (om/get-query home/Home)
+              st st)}))
+
+(defmethod read :company
+  [{:keys [state]} key _]
+  (let [st @state]
+    {:value (om/db->tree (om/get-query company/Company)
               st st)}))
 
 (defmulti mutate om/dispatch)

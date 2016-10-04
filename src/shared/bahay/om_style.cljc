@@ -2,7 +2,6 @@
   (:require
    #?(:clj [clojure.spec :as s]
       :cljs [cljs.spec :as s])
-   [garden.spec]
    [om.next :as om]))
 
 (defprotocol Style

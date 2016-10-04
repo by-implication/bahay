@@ -47,4 +47,4 @@
         (mapv person-view
           people)))))
 
-(def view (om/factory People))
+(def people-view (om/factory People))

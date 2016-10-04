@@ -32,7 +32,8 @@
   Object
   (render [this]
     (let [{:keys [services]} (om/props this)]
-      (dom/div #js {:className "services"}
+      (dom/div #js {:className "services container"}
+        (dom/h2 nil "Our Services")
         (mapv service-feature services)))))
 
 (def services-view (om/factory Services))
@@ -42,9 +43,8 @@
   (style [this]
     [:.home
      (os/get-style portfolio/Portfolio)
-     [:#hero
-      [:h1 {:text-align :center
-            :font-weight 300
+     [:#hero {:text-align :center}
+      [:h1 {:font-weight 300
             :font-size (px 64)}]]])
   static om/IQuery
   (query [this]
@@ -55,7 +55,8 @@
     (let [{:keys [projects services]} (om/props this)]
       (dom/div #js {:className "home"}
         (dom/div #js {:id "hero"}
-          (dom/h1 nil "We help people do more."))
+          (dom/h1 nil "We help people do more.")
+          (dom/p nil "We enable people from all walks of life walk faster."))
         (portfolio/view {:projects projects})
         (services-view {:services services})))))
 

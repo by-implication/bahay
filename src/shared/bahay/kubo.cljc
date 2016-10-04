@@ -4,6 +4,7 @@
   (:require
    #?@(:cljs [[devtools.core :as devtools]
               [goog.dom :as gdom]])
+   [bahay.company :as company]
    [bahay.data :as bata]
    [bahay.home :as home]
    [bahay.om-style :as os]
@@ -37,8 +38,8 @@
 (def app-routes
   ["/" {"" :home
         ["portfolio/" :id] :project
-        "people" :people
-        "about" :about}])
+        "company" :company
+        "careers" :careers}])
 
 (defui Toolbar
   static os/Style
@@ -53,8 +54,9 @@
     (dom/div #js {:className "toolbar h stacked centered guttered"}
       (dom/a #js {:href "/"} "By Implication")
       (layout/spacer)
-      (dom/a #js {:href "/people"} "People")
-      (dom/a #js {:href "/projects"} "Projects"))))
+      (dom/a #js {:href "/company"} "Company")
+      (dom/a #js {:href "/careers"} "Careers")
+      (dom/a #js {:href "#"} "Contact"))))
 
 (def toolbar-view (om/factory Toolbar))
 
@@ -73,18 +75,18 @@
   static om/IQuery
   (query [this]
     [:current-view
-     {:people (om/get-query people/Person)}
+     {:company (om/get-query company/Company)}
      {:home (om/get-query home/Home)}])
   Object
   (render [this]
-    (let [{:keys [current-view people home]} (om/props this)]
+    (let [{:keys [current-view company home]} (om/props this)]
       #?(:cljs (js/console.log (os/get-style this)))
       (dom/div #js {:className "bahay"}
         (toolbar-view)
         (case current-view
           :home (home/home-view home)
-          :people (people/view {:people people})
-          :about (dom/div nil "about")
+          :company (company/company-view company)
+          :careers (dom/div nil "careers")
           (dom/div nil "404"))))))
 
 (def parser
