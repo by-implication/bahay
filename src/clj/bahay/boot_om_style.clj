@@ -53,8 +53,6 @@ colocated styles of a root om.next class"
                           resolve
                           var-get
                           os/get-style)]
-          (clojure.pprint/pprint
-            (s/conform :garden/rule-list out-style))
           (pod/with-eval-in garden-pod
             (garden.core/css
               {:pretty-print? ~pretty-print

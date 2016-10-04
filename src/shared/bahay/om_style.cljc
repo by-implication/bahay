@@ -12,12 +12,13 @@
   "Gets the colocated style of either a component or a class
   Adds the class as meta"
   [x]
-  (let [class (if (om/component? x)
-                (om/react-type x) x)]
+  (let [ctor (if (om/component? x)
+                (om/react-type x) x)
+        css #?(:clj ((:style (meta ctor)) ctor)
+               :cljs (style ctor))]
     (with-meta
-      #?(:clj ((:style (meta class)) class)
-         :cljs (style class))
-      {:component class})))
+      css
+      {:component ctor})))
 
 #?(:clj
    (defn gen-css-namespace
@@ -42,18 +43,10 @@
      (clojure.string/replace
        (.-name class) "$" "_")))
 
-(defn qualify
+(defn qualify-selector
   "Given a class and keyword, qualify the keyword
   with the appropriate class namespace."
   [component-class css-classname]
   (str (if (keyword? css-classname) ".")
     (gen-css-namespace component-class)
     "_" (name css-classname)))
-
-(defn qualify-css-data
-  "recursively qualify the classnames of a garden data structure.
-  Base case: [classname attr-map]
-  Recursive case: [classname attr-map & children]
-  children may include vectors as above, or lists of vectors."
-  [css-data]
-  )
