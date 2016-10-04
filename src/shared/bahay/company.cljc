@@ -14,6 +14,8 @@
   (render [this]
     (let [{:keys [people]} (om/props this)]
       (dom/div #js {:className "container"}
-        (people/people-view {:people people})))))
+        (people/people-view {:people people})
+        (dom/h2 nil "Company Culture")
+        (dom/p nil "We're laid back and easy-going")))))
 
 (def company-view (om/factory Company))

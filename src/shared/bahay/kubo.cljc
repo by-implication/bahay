@@ -4,6 +4,7 @@
   (:require
    #?@(:cljs [[devtools.core :as devtools]
               [goog.dom :as gdom]])
+   [bahay.careers :as careers]
    [bahay.company :as company]
    [bahay.data :as bata]
    [bahay.home :as home]
@@ -86,7 +87,7 @@
         (case current-view
           :home (home/home-view home)
           :company (company/company-view company)
-          :careers (dom/div nil "careers")
+          :careers (careers/careers-view)
           (dom/div nil "404"))))))
 
 (def parser
