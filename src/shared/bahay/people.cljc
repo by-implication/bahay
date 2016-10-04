@@ -1,6 +1,7 @@
 (ns bahay.people
   (:require
    [bahay.om-style :as os]
+   [garden.units :refer [px percent]]
    [om.dom :as dom]
    [om.next :as om :refer [defui]]
    ))
@@ -16,22 +17,28 @@
 (defui Person
   static os/Style
   (style [this]
-    [:.person {:background-color :pink}])
+    [:.person {:display :inline-block}
+     [:img {:display :block
+            :width (px 96)
+            :height (px 96)
+            :border-radius (percent 50)
+            :overflow :hidden}]])
   static om/Ident
   (ident [this {:keys [person/id]}]
     [:person/by-id id])
   static om/IQuery
   (query [this]
-    [:person/id :person/name
+    [:person/id :person/display-name
      :person/image-url
      {:person/roles (om/get-query Role)}])
   Object
   (render [this]
-    (let [{:keys [person/name person/roles
+    (let [{:keys [person/display-name person/roles
                   person/image-url]} (om/props this)]
       (dom/div #js {:className "person"}
-        (:nick name)
-        (dom/img #js {:src image-url})))))
+        (dom/div #js {:className "portrait"}
+          (dom/img #js {:src image-url}))
+        (dom/div nil display-name)))))
 
 (def person-view (om/factory Person
                    {:keyfn :person/id}))
