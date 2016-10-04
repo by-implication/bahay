@@ -1,34 +1,16 @@
 (ns bahay.portfolio
   (:require
    [bahay.om-style :as os]
+   [bahay.services :as services]
    [garden.units :refer [px percent s]]
    [om.dom :as dom]
    [om.next :as om :refer [defui]]))
-
-(defui Service
-  static os/Style
-  (style [this]
-    [:.service-label {:display :inline-block}
-     [:&+.service-label {:margin-left (px 8)}]])
-  static om/Ident
-  (ident [this {:keys [service/id]}]
-    [:service/by-id id])
-  static om/IQuery
-  (query [this]
-    [:service/id :service/label :service/icon-id])
-  Object
-  (render [this]
-    (let [{:keys [service/id service/label]} (om/props this)]
-      (dom/span #js {:className "service-label"} label))))
-
-(def service-view (om/factory Service
-                    {:keyfn :service/id}))
 
 (defui Project
   static os/Style
   (style [this]
     [:.project
-     (os/get-style Service)
+     (os/get-style services/Service)
      [:&:hover [:.accent-screen {:opacity 0}]]
      [:.info {:padding [[0 (px 16)]]
               :width (px 240)
@@ -53,7 +35,7 @@
      :project/featured
      :project/accent
      :project/image-url
-     {:project/services (om/get-query Service)}])
+     {:project/services (om/get-query services/Service)}])
   Object
   (render [this]
     (let [{:keys [project/id
@@ -68,7 +50,7 @@
         (dom/div #js {:className "info"}
           (dom/h3 #js {:className "label"} label)
           (dom/div nil (name ownership))
-          (apply dom/div nil (mapv service-view services)))
+          (apply dom/div nil (mapv services/service-view services)))
         (dom/div #js {:className "project-image grow"}
           (dom/img #js {:src image-url})
           (dom/div #js {:className "accent-screen"
