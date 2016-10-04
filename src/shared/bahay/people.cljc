@@ -23,12 +23,15 @@
   static om/IQuery
   (query [this]
     [:person/id :person/name
+     :person/image-url
      {:person/roles (om/get-query Role)}])
   Object
   (render [this]
-    (let [{:keys [person/name person/roles]} (om/props this)]
+    (let [{:keys [person/name person/roles
+                  person/image-url]} (om/props this)]
       (dom/div #js {:className "person"}
-        (:nick name)))))
+        (:nick name)
+        (dom/img #js {:src image-url})))))
 
 (def person-view (om/factory Person
                    {:keyfn :person/id}))
