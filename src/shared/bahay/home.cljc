@@ -15,6 +15,7 @@
   (style [this]
     [:.home
      (os/get-style portfolio/Portfolio)
+     (os/get-style services/Services)
      [:#hero {:text-align :center}
       [:h1 {:font-weight 300
             :font-size (px 64)}]]])

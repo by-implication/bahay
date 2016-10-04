@@ -27,7 +27,8 @@
 (defui ServiceFeature
   static os/Style
   (style [this]
-    [:.service-feature])
+    [:.service-feature
+     [:h3 {:font-weight 300}]])
   static om/IQuery
   (query [this]
     (om/get-query Service))
@@ -50,7 +51,7 @@
 (defui Services
   static os/Style
   (style [this]
-    [:.services])
+    [:.services (os/get-style ServiceFeature)])
   static om/IQuery
   (query [this]
     [{:services (om/get-query Service)}])
