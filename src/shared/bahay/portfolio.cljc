@@ -15,7 +15,7 @@
     [:service/by-id id])
   static om/IQuery
   (query [this]
-    [:service/id :service/label])
+    [:service/id :service/label :service/icon-id])
   Object
   (render [this]
     (let [{:keys [service/id service/label]} (om/props this)]

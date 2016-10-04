@@ -21,6 +21,8 @@
      [:title "By Implication"]
      (hiccup/include-css "/css/styles.css")]
     [:body
+     #_[:div {:style "display: none"}
+      svg-icons]
      [:div#app html-string]
      (hiccup/include-js "/main.js")]))
 

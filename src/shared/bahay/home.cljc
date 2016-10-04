@@ -1,5 +1,8 @@
 (ns bahay.home
   (:require
+   #?@(:cljs
+       [[goog.string :as gstring :refer [format]]
+        [goog.string.format]])
    [bahay.om-style :as os]
    [bahay.portfolio :as portfolio]
    [garden.units :refer [px percent]]
@@ -15,9 +18,16 @@
     (om/get-query portfolio/Service))
   Object
   (render [this]
-    (let [{:keys [service/id service/label]} (om/props this)]
-      (dom/div #js {:className "service-feature"}
-        label))))
+    (let [{:keys [service/id service/label service/icon-id]} (om/props this)]
+      (dom/div #js {:className "service-feature v stacked grow centered"}
+        (dom/svg #js {:className "big-icon"}
+          #?(:cljs (js/React.createElement "use"
+                     #js {:xlinkHref (str "icons/service-icons.svg#" icon-id)})
+             :clj (dom/use
+                    #js {:xlinkHref (str "icons/service-icons.svg#" icon-id)}
+                    nil)))
+        (dom/h3 nil label)
+        ))))
 
 (def service-feature (om/factory ServiceFeature
                        {:keyfn :service/id}))
@@ -34,7 +44,8 @@
     (let [{:keys [services]} (om/props this)]
       (dom/div #js {:className "services container"}
         (dom/h2 nil "Our Services")
-        (mapv service-feature services)))))
+        (dom/div #js {:className "h stacked generously guttered"}
+          (mapv service-feature services))))))
 
 (def services-view (om/factory Services))
 

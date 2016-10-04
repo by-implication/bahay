@@ -17,7 +17,8 @@
 (defui Person
   static os/Style
   (style [this]
-    [:.person {:display :inline-block}
+    [:.person {:display :inline-flex
+               :width (px 128)}
      [:img {:display :block
             :width (px 96)
             :height (px 96)
@@ -35,9 +36,8 @@
   (render [this]
     (let [{:keys [person/display-name person/roles
                   person/image-url]} (om/props this)]
-      (dom/div #js {:className "person"}
-        (dom/div #js {:className "portrait"}
-          (dom/img #js {:src image-url}))
+      (dom/div #js {:className "person v stacked centered"}
+        (dom/img #js {:src image-url})
         (dom/div nil display-name)))))
 
 (def person-view (om/factory Person
@@ -54,7 +54,8 @@
   (render [this]
     (let [{:keys [people]} (om/props this)]
       (dom/div #js {:className "people"}
-        (mapv person-view
-          people)))))
+        (->> people
+          (sort-by :person/display-name)
+          (mapv person-view))))))
 
 (def people-view (om/factory People))

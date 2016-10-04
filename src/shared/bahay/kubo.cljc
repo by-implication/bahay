@@ -67,6 +67,8 @@
     (list
       layout
       typography
+      [:.big-icon {:width (px 96)
+                   :height (px 96)}]
       [:body {:margin 0}]
       [:img {:max-width (percent 100)}]
       [:.bahay
@@ -88,7 +90,11 @@
           :home (home/home-view home)
           :company (company/company-view company)
           :careers (careers/careers-view)
-          (dom/div nil "404"))))))
+          (dom/div nil "404"))
+        (dom/footer #js {:style #js {:backgroundColor "#222"
+                                     :height "200px"}}
+          (dom/div #js {:className "container"}
+            "I am a footer"))))))
 
 (def parser
   (om/parser

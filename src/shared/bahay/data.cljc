@@ -75,28 +75,40 @@
     (vec)))
 
 (def services
-  {:ui {:service/id :ui :service/label "UI/UX"}
-   :dev {:service/id :dev :service/label "Development"}
-   :dir {:service/id :dir :service/label "Business Direction"}
-   :big {:service/id :big :service/label "Big Data"}})
+  {:ui #:service{:id :ui
+                 :label "UI/UX"
+                 :icon-id "design"
+                 :writeup "We not only think about what the product looks like, but how it will work."}
+   :dev #:service{:id :dev
+                  :label "Development"
+                  :icon-id "development"
+                  :writeup "We use cutting edge techniques in building fast, fully featured apps."}
+   :dir #:service{:id :dir
+                  :label "Business Direction"
+                  :icon-id "business"
+                  :writeup "Our business specialists ensure that products make sense."}
+   :big #:service{:id :big
+                  :label "Big Data"
+                  :icon-id "big-data"
+                  :writeup "Our data scientists are able to create sophisticated models."}})
 
 (def projects
-  [{:project/id :sakay
-    :project/label "Sakay"
-    :project/ownership :in-house
-    :project/services [(services :ui)
-                       (services :dev)
-                       (services :big)]
-    :project/featured true
-    :project/accent "#2a6d45"
-    :project/image-url (str asset-url "projects/sakay/sakay-timedate-mockup.jpg")}
-   {:project/id :openrecon
-    :project/label "Open Reconstruction"
-    :project/ownership :client
-    :project/services [(services :ui) (services :dev)]}
-   {:project/id :storylark
-    :project/label "Storylark"
-    :project/ownership :in-house
-    :project/services [(services :ui) (services :dev)]}
+  [#:project{:id :sakay
+             :label "Sakay"
+             :ownership :in-house
+             :services [(services :dev)
+                        (services :ui)
+                        (services :big)]
+             :featured true
+             :accent "#2a6d45"
+             :image-url (str asset-url "projects/sakay/sakay-timedate-mockup.jpg")}
+   #:project{:id :openrecon
+             :label "Open Reconstruction"
+             :ownership :client
+             :services [(services :dev) (services :ui)]}
+   #:project{:id :storylark
+             :label "Storylark"
+             :ownership :in-house
+             :services [(services :dev) (services :ui)]}
    #_{:project/id :wildfire
     :project/name "Wildfire"}])

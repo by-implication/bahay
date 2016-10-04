@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+<symbol id="big-data" viewBox="0 0 24 24">
+  <path fill="none" d="M0 0h24v24H0z"/>
+  <g fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
+    <path d="M.5 7.5h9v16h-9zM1.5 3.5h7v4h-7zM16.5 9.5h7v14h-7zM17.5 6.5h5v3h-5z"/>
+    <path d="M3.5 21.5h2v2h-2zM19.5 21.5h2v2h-2zM4.5 3.5v-3M9.5 13.5h7M9.5 23.5h7M3.5 5.5h3M2.5 9.5h5M2.5 11.5h5M2.5 13.5h5M2.5 15.5h5M2.5 17.5h5M2.5 19.5h5M18.5 11.5h3M18.5 13.5h3M18.5 15.5h3M18.5 17.5h3M18.5 19.5h3M11.5 15.5h3M11.5 17.5h3M11.5 19.5h3"/>
+  </g>
+</symbol>
+<symbol id="business" viewBox="0 0 24 24">
+  <path fill="none" d="M0 0h24v24H0z"/>
+  <g fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
+    <path d="M2.5 19.5h19v2h-19zM3.5 8.5h17v11h-17zM1.5 6.5h21v2h-21zM23.5 23.5H.5M23.5 21.5H.5M5.5 8.5v11M10.5 8.5v11M8.5 8.5v11M13.5 8.5v11M15.5 8.5v11M18.5 8.5v11M22.5 6.5h-21L12 .5z"/>
+  </g>
+</symbol>
+<symbol id="design" viewBox="0 0 24 24">
+  <path fill="none" d="M0 0h24v24H0z"/>
+  <g fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
+    <path d="M14.498 10.5l-3.5 1 1-3.5L19.5.499l2.5 2.5zM17.5 2.499l2.5 2.5M11.998 8l2.5 2.5"/>
+    <path d="M22 5.5h1.5v18H.5v-18H12"/>
+    <path d="M8 8.5H3.5v12h9v-4h5v4h3V9"/>
+    <path d="M3.5 16.5h4V20M12.5 18.5h5M12.5 20.5h5M3.5 13.5H8M16 14.5h4.5M16 12.5h4.5"/>
+  </g>
+</symbol>
+<symbol id="development" viewBox="0 0 24 24">
+  <path fill="none" d="M0 0h24v24H0z"/>
+  <g fill="none" stroke="#000" stroke-linejoin="round" stroke-miterlimit="10">
+    <path d="M9.5 17.5v-10h6a2 2 0 0 1 2 2v3h4v5h-12z"/>
+    <path d="M10.851 7.378L3.199.948A1.642 1.642 0 0 0 .885 3.261l8.55 9.772M.5 14.5V17c0 1.312.531 3.031 2.875 3.031s3.344-2.094 3.344-2.094S3.5 19.438 3.5 14.5h-3zM23.5 21.5a2 2 0 0 1-2 2h-11a2 2 0 0 1 0-4h11a2 2 0 0 1 2 2z"/>
+    <path d="M.5 2v12.5h3l.958-7.084"/>
+    <path stroke-linecap="round" d="M11.5 12V9.5H14"/>
+    <circle cx="11.5" cy="21.5" r="1"/>
+    <circle cx="16" cy="21.5" r="1"/>
+    <circle cx="20.5" cy="21.5" r="1"/>
+  </g>
+</symbol>
+</svg>

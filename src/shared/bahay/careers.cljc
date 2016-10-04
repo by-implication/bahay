@@ -12,7 +12,7 @@
     [:.careers {:background-color :blue}])
   Object
   (render [this]
-    (dom/div nil
+    (dom/div #js {:className "container"}
       (dom/h1 nil "Work with us")
       (dom/div nil
         (dom/h2 nil "Traits")
