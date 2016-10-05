@@ -15,6 +15,8 @@
             :line-height 1.5}]
     [:h1 :h2 :h3 :h4 :h5 :h6 {:color "#333"}]
     [:a {:color t/accent}]
+    [:hr {:border-top :none
+          :border-bottom-color "#ddd"}]
     [:ul {:list-style :none
           :padding 0
           :margin 0}]
