@@ -19,15 +19,15 @@
      [:&.center-justified {:justify-content 'center}]
      [:&.centerized {:align-items 'center
                      :justify-content 'center}]
-     [:&.guttered
+     [:&.guttered :&.gutters
       [:&.v>*+* {:margin-top (px 12)}]
-      [:&.h>*+* {:margin-left (px 12)}]
-      [:&.lightly
-       [:&.v>*+* {:margin-top (px 8)}]
-       [:&.h>*+* {:margin-left (px 8)}]]
-      [:&.generously
-       [:&.v>*+* {:margin-top (px 24)}]
-       [:&.h>*+* {:margin-left (px 24)}]]]]
+      [:&.h>*+* {:margin-left (px 12)}]]
+     [:&.gutters-sml
+      [:&.v>*+* {:margin-top (px 8)}]
+      [:&.h>*+* {:margin-left (px 8)}]]
+     [:&.gutters-lrg
+      [:&.v>*+* {:margin-top (px 24)}]
+      [:&.h>*+* {:margin-left (px 24)}]]]
     [:.grow {:flex 1}]
     [:.padded {:padding [[(px 12) (px 16)]]
                :box-sizing 'border-box}]
