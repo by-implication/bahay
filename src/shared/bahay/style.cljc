@@ -12,4 +12,7 @@
             :font-size (px 16)
             :color t/dark}]
     [:a {:color t/accent}]
+    [:ul {:list-style :none
+          :padding 0
+          :margin 0}]
     [:.semitrans-text {:opacity 0.4}]))
