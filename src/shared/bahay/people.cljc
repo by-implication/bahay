@@ -12,7 +12,7 @@
     [:role/by-id id])
   static om/IQuery
   (query [this]
-    [:role/id :role/name]))
+    [:role/id :role/label :role/reqs]))
 
 (defui Person
   static os/Style

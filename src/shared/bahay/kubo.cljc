@@ -34,7 +34,9 @@
   {:current-view :home
    :services (vec (vals bata/services))
    :people bata/people
-   :projects bata/projects})
+   :projects bata/projects
+   :available-positions (mapv bata/roles
+                          [:dev :des :mkt :pm])})
 
 (def app-routes
   ["/" {"" :home
@@ -79,17 +81,17 @@
   (query [this]
     [:current-view
      {:company (om/get-query company/Company)}
-     {:home (om/get-query home/Home)}])
+     {:home (om/get-query home/Home)}
+     {:careers (om/get-query careers/Careers)}])
   Object
   (render [this]
-    (let [{:keys [current-view company home]} (om/props this)]
-      #?(:cljs (js/console.log (os/get-style this)))
+    (let [{:keys [current-view company home careers]} (om/props this)]
       (dom/div #js {:className "bahay"}
         (toolbar-view)
         (case current-view
           :home (home/home-view home)
           :company (company/company-view company)
-          :careers (careers/careers-view)
+          :careers (careers/careers-view careers)
           (dom/div nil "404"))
         (dom/footer #js {:style #js {:backgroundColor "#222"
                                      :height "200px"}}

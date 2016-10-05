@@ -1,8 +1,9 @@
 (ns bahay.parser
   #?(:clj (:refer-clojure :exclude [read]))
   (:require
-   [bahay.home :as home]
+   [bahay.careers :as careers]
    [bahay.company :as company]
+   [bahay.home :as home]
    [bahay.people :as people]
    [bahay.portfolio :as portfolio]
    [om.next :as om]))
@@ -37,6 +38,12 @@
   [{:keys [state]} key _]
   (let [st @state]
     {:value (om/db->tree (om/get-query company/Company)
+              st st)}))
+
+(defmethod read :careers
+  [{:keys [state]} key _]
+  (let [st @state]
+    {:value (om/db->tree (om/get-query careers/Careers)
               st st)}))
 
 (defmulti mutate om/dispatch)

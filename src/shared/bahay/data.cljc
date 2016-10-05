@@ -4,10 +4,26 @@
   "http://assets.byimplication.com/site/")
 
 (def roles
-  {:cof {:role/id :cof :role/name "Co-Founder"}
-   :dev {:role/id :dev :role/name "Developer"}
-   :des {:role/id :des :role/name "Designer"}
-   :biz {:role/id :ban :role/name "Business Analyst"}})
+  {:cof #:role{:id :cof
+               :label "Co-Founder"}
+   :dev #:role{:id :dev
+               :label "Developer"
+               :reqs ["Any language"
+                      "Ideally familiar with functional programming"]}
+   :des #:role{:id :des
+               :label "Designer"
+               :reqs ["UI/UX"
+                      "Preferably comfy with code"]}
+   :biz #:role{:id :biz
+               :label "Business Analyst"}
+   :mkt #:role{:id :mkt
+               :label "Marketer"
+               :reqs ["Can manage social media accounts"
+                      "Can handle marketing efforts for multiple projects"]}
+   :pm #:role{:id :pm
+              :label "Project Manager"
+              :reqs ["Can direct projects"
+                     "Can get things done"]}})
 
 (def people
   (->>
@@ -17,14 +33,14 @@
               :link "http://github.com/levitanong"}
      #:person{:nick-name "Phi"
               :display-name "Philip Cheang"
-              :roles [:cof :dev :des]
+              :roles [:cof :dev :des :mkt]
               :link "http://phi.ph"}
      #:person{:nick-name "Rodz"
               :display-name "Rodrick Tan"
-              :roles [:cof :biz]}
+              :roles [:cof :biz :pm]}
      #:person{:nick-name "Kenneth"
               :display-name "Kenneth Yu"
-              :roles [:cof :biz]
+              :roles [:cof :biz :pm]
               :link "http://twitter.com/kennethgyu"}
      #:person{:nick-name "Wil"
               :display-name "Wilhansen Li"
