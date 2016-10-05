@@ -9,7 +9,8 @@
    :dev #:role{:id :dev
                :label "Developer"
                :reqs ["Any language"
-                      "Ideally familiar with functional programming"]}
+                      "Ideally familiar with functional programming"
+                      "Bonus if involved in open source projects"]}
    :des #:role{:id :des
                :label "Designer"
                :reqs ["UI/UX"
