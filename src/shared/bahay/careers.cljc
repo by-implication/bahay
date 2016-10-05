@@ -8,13 +8,17 @@
    ))
 
 (defui RoleFeature
+  static os/Style
+  (style [this]
+    [:.role-feature
+     [:p {:font-size (px 12)}]])
   static om/IQuery
   (query [this]
     (om/get-query people/Role))
   Object
   (render [this]
     (let [{:keys [role/label role/reqs]} (om/props this)]
-      (dom/li #js {:className "grow"}
+      (dom/li #js {:className "grow role-feature"}
         (dom/h3 nil label)
         (dom/ul nil
           (->> reqs
@@ -35,14 +39,15 @@
 (defui Careers
   static os/Style
   (style [this]
-    [:.careers {:background-color :blue}])
+    [:.careers
+     (os/get-style RoleFeature)])
   static om/IQuery
   (query [this]
     [{:available-positions (om/get-query people/Role)}])
   Object
   (render [this]
     (let [{:keys [available-positions]} (om/props this)]
-      (dom/div #js {:className "container"}
+      (dom/div #js {:className "container careers"}
         (dom/h1 nil "Work with us")
         (dom/hr nil)
         (dom/div nil

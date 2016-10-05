@@ -76,7 +76,8 @@
       [:.bahay
        (os/get-style Toolbar)
        (os/get-style people/People)
-       (os/get-style home/Home)]))
+       (os/get-style home/Home)
+       (os/get-style careers/Careers)]))
   static om/IQuery
   (query [this]
     [:current-view
