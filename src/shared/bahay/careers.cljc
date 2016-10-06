@@ -12,21 +12,25 @@
   static os/Style
   (style [this]
     [:.role-feature
-     [:p {:font-size (px 12)}]])
+     [:h3 {:margin-bottom 0
+           :text-align :center}]
+     [:.reqs {:font-size (px 12)}]])
   static om/IQuery
   (query [this]
     (om/get-query people/Role))
   Object
   (render [this]
-    (let [{:keys [role/label role/reqs]} (om/props this)]
-      (dom/li #js {:className "grow role-feature"}
+    (let [{:keys [role/label role/reqs role/icon-id]} (om/props this)]
+      (dom/li #js {:className "grow role-feature v stacked gutters centered"}
+        (dom/svg #js {:className "icon icon-mid"}
+          (u/use #js {:xlinkHref (str "#" icon-id)}))
         (dom/h3 nil label)
-        (dom/ul nil
+        (dom/ul #js {:className "reqs v stacked gutters"}
           (->> reqs
             (map-indexed
               (fn [index req]
                 (dom/li #js {:key (str "req" index)}
-                  (dom/p nil req))))
+                  req)))
             (vec)))))))
 
 (def role-feature (om/factory RoleFeature
@@ -37,7 +41,7 @@
    (blurb nil title content))
   ([icon-id title content]
    (dom/li #js {:className "blurb grow v stacked gutters centered"}
-     (dom/svg #js {:className "big-icon"}
+     (dom/svg #js {:className "icon icon-lrg"}
        (u/use #js {:xlinkHref (str "#" icon-id)}))
      (dom/h3 nil title)
      (dom/div nil
@@ -82,13 +86,16 @@
         (dom/hr nil)
         (dom/div nil
           (dom/h2 nil "Available Positions")
-          (dom/ul #js {:className "h stacked gutters-lrg"}
-            (mapv role-feature
-              available-positions)
-            (role-feature
-              {:role/id :else
-               :role/label "Don't see your position here?"
-               :role/reqs ["Convince us."]})))
+          (dom/ul #js {:className "v stacked gutters-lrg"}
+            (mapv (fn [ps] (dom/div #js {:className "h stacked gutters-lrg"}
+                             (mapv role-feature ps)))
+              (partition-all 3
+                (conj available-positions
+                  {:role/id :else
+                   :role/label "Don't see your position here?"
+                   :role/icon-id "missing"
+                   :role/reqs ["Convince us."]})))
+            ))
         ))))
 
 (def careers-view (om/factory Careers))

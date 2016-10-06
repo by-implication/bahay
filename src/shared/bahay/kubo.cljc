@@ -70,13 +70,15 @@
       layout
       typography
       #_[:symbol [:g {:stroke :blue}]]
-      [:.big-icon {:width (px 96)
-                   :height (px 96)
-                   :display :block
-                   :stroke t/dark
-                   :fill :transparent
-                   :stroke-linecap :round
-                   :stroke-linejoin :round}]
+      [:.icon {:display :block
+               :stroke t/dark
+               :fill :transparent
+               :stroke-linecap :round
+               :stroke-linejoin :round}]
+      [:.icon-lrg {:width (px 96)
+                   :height (px 96)}]
+      [:.icon-mid {:width (px 72)
+                   :height (px 72)}]
       [:body {:margin 0}]
       [:img {:max-width (percent 100)}]
       [:.bahay

@@ -37,7 +37,7 @@
   (render [this]
     (let [{:keys [service/id service/label service/icon-id]} (om/props this)]
       (dom/div #js {:className "service-feature v stacked grow centered"}
-        (dom/svg #js {:className "big-icon"}
+        (dom/svg #js {:className "icon icon-lrg"}
           (u/use #js {:xlinkHref (str "#" icon-id)}))
         (dom/h3 nil label)
         ))))

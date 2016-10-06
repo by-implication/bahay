@@ -8,21 +8,25 @@
                :label "Co-Founder"}
    :dev #:role{:id :dev
                :label "Developer"
+               :icon-id "developer"
                :reqs ["Any language"
                       "Ideally familiar with functional programming"
                       "Bonus if involved in open source projects"]}
    :des #:role{:id :des
                :label "Designer"
+               :icon-id "designer"
                :reqs ["UI/UX"
                       "Preferably comfy with code"]}
    :biz #:role{:id :biz
                :label "Business Analyst"}
    :mkt #:role{:id :mkt
                :label "Marketer"
+               :icon-id "marketer"
                :reqs ["Can manage social media accounts"
                       "Can handle marketing efforts for multiple projects"]}
    :pm #:role{:id :pm
               :label "Project Manager"
+              :icon-id "manager"
               :reqs ["Can direct projects"
                      "Can get things done"]}})
 

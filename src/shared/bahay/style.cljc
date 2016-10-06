@@ -16,7 +16,9 @@
     [:h1 :h2 :h3 :h4 :h5 :h6 {:color "#333"}]
     [:a {:color t/accent}]
     [:hr {:border-top :none
-          :border-bottom-color "#ddd"}]
+          :border-bottom-color "#ddd"
+          :margin-top (px 16)
+          :margin-bottom (px 16)}]
     [:ul {:list-style :none
           :padding 0
           :margin 0}]
