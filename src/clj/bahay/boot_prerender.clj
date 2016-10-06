@@ -9,8 +9,13 @@
    [boot.util :as util]
    [clojure.java.io :as io]
    [hiccup.page :as hiccup]
+   [hickory.core :as hickory]
    [om.dom :as dom]
    [om.next :as om]))
+
+(def svg-icons
+  (->> "resources/icons/icons.svg"
+    slurp hickory/parse hickory/as-hiccup))
 
 (defn html-wrapper [html-string]
   (hiccup/html5
@@ -21,7 +26,7 @@
      [:title "By Implication"]
      (hiccup/include-css "/css/styles.css")]
     [:body
-     #_[:div {:style "display: none"}
+     [:div {:style "display: none"}
       svg-icons]
      [:div#app html-string]
      (hiccup/include-js "/main.js")]))

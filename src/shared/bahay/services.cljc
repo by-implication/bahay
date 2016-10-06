@@ -1,6 +1,7 @@
 (ns bahay.services
   (:require
    [bahay.om-style :as os]
+   [bahay.util :as u]
    [garden.units :refer [px percent s]]
    [om.dom :as dom]
    [om.next :as om :refer [defui]]))
@@ -37,11 +38,7 @@
     (let [{:keys [service/id service/label service/icon-id]} (om/props this)]
       (dom/div #js {:className "service-feature v stacked grow centered"}
         (dom/svg #js {:className "big-icon"}
-          #?(:cljs (js/React.createElement "use"
-                     #js {:xlinkHref (str "icons/service-icons.svg#" icon-id)})
-             :clj (dom/use
-                    #js {:xlinkHref (str "icons/service-icons.svg#" icon-id)}
-                    nil)))
+          (u/use #js {:xlinkHref (str "#" icon-id)}))
         (dom/h3 nil label)
         ))))
 

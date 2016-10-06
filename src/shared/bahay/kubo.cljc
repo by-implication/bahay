@@ -69,8 +69,14 @@
     (list
       layout
       typography
+      #_[:symbol [:g {:stroke :blue}]]
       [:.big-icon {:width (px 96)
-                   :height (px 96)}]
+                   :height (px 96)
+                   :display :block
+                   :stroke t/dark
+                   :fill :transparent
+                   :stroke-linecap :round
+                   :stroke-linejoin :round}]
       [:body {:margin 0}]
       [:img {:max-width (percent 100)}]
       [:.bahay

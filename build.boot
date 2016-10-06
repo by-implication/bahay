@@ -19,6 +19,7 @@
 
                   ;; server
                   [hiccup "1.0.5"]
+                  [hickory "0.6.0"]
 
                   ;; styles
                   [danielsz/boot-autoprefixer "0.0.8"]
